@@ -216,7 +216,7 @@ public class Window extends JFrame {
         fK.setText("3");
         fN.setText("2");
         fBase.setText("2");
-        selector.setSeleccion(Integral.C);
+        selector.setSeleccion(Integral.I);
         refrescarParametros();
     }
 
