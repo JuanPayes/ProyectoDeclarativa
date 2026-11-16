@@ -19,7 +19,8 @@ evaluar(A/B, X0, V) :- !,
 evaluar(A^B, X0, V) :- !, evaluar(A, X0, VA), evaluar(B, X0, VB), V is VA ** VB.
 evaluar(sin(A), X0, V) :- !, evaluar(A, X0, VA), V is sin(VA).
 evaluar(cos(A), X0, V) :- !, evaluar(A, X0, VA), V is cos(VA).
-evaluar(tan(A), X0, V) :- !, evaluar(A, X0, VA), V is tan(VA).
+evaluar(tan(A), X0, V) :- !,    % tuProlog no trae tan/1 en aritmetica
+    evaluar(A, X0, VA), C is cos(VA), C =\= 0, V is sin(VA) / C.
 evaluar(exp(A), X0, V) :- !, evaluar(A, X0, VA), V is exp(VA).
 evaluar(abs(A), X0, V) :- !, evaluar(A, X0, VA), V is abs(VA).
 evaluar(sqrt(A), X0, V) :- !, evaluar(A, X0, VA), VA >= 0, V is sqrt(VA).
