@@ -6,10 +6,10 @@ import java.util.Set;
 //Solo se van a dejar las que se van a desarrollar
 
 public enum Integral {
-    //A("∫ k dx", "k es una constante numérica", Parametro.K),
+    A("∫ k dx", "k es una constante numérica", Parametro.K),
     B("∫ x dx", "Solo requiere los límites a y b"),
-    //C("∫ k·x dx", "k es una constante numérica", Parametro.K),
-    //D("∫ xⁿ dx", "n es un número entero", Parametro.N),
+    C("∫ k·x dx", "k es una constante numérica", Parametro.K),
+    D("∫ xⁿ dx", "n es un número entero", Parametro.N),
     //E("∫ u dx", "u es una función de x", Parametro.U),
     //F("∫ k·u dx", "k es una constante numérica y u una función de x", Parametro.K, Parametro.U),
     G("∫ (u + v) dx", "u y v son funciones de x", Parametro.U, Parametro.V),

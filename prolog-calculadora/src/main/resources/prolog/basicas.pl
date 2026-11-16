@@ -1,6 +1,58 @@
 % basicas.pl - Reglas basicas: constantes, potencias, linealidad, a^x, a^u
 % Enunciado (a) a (j). Define clausulas de regla/5 (ver integrador.pl).
 
+% a) integral de k dx = k*x
+%    Una constante es continua en todos los reales: no hay restricciones.
+regla(a, Params, A, B, R) :-
+    param(k, Params, K),
+    por(K, x, F),
+    con_area(F, A, B, R).
+
+% c) integral de (k*x) dx = k * x^2 / 2
+%    k*x es continua en todos los reales: no hay restricciones.
+regla(c, Params, A, B, R) :-
+    param(k, Params, K),
+    k_por_x2_medios(K, F),
+    con_area(F, A, B, R).
+
+% k_por_x2_medios(+K, -F): F = k*x^2/2 sin escribir 1*... ni k*(x^2/2).
+k_por_x2_medios(K, x^2 / 2) :- K =:= 1, !.
+k_por_x2_medios(K, -(x^2 / 2)) :- K =:= -1, !.
+k_por_x2_medios(K, K * x^2 / 2).
+
+% d) integral de x^n dx, con n entero
+%    n =  0  ->  x
+%    n = -1  ->  ln|x|
+%    otro n  ->  x^(n+1) / (n+1)
+%    Si n < 0, x^n no esta definida en x = 0: si 0 esta en [a, b] la
+%    integral es impropia y se devuelve un error.
+regla(d, Params, A, B, R) :-
+    param(n, Params, N),
+    (   \+ integer(N)
+    ->  R = error('n debe ser un numero entero.')
+    ;   N < 0, contiene_cero(A, B)
+    ->  R = error('x^n no esta definida en x = 0 (n < 0) y 0 esta en [a, b]: la integral es impropia.')
+    ;   potencia_x(N, F),
+        con_area(F, A, B, R)
+    ).
+
+potencia_x(0, x) :- !.
+potencia_x(-1, ln(abs(x))) :- !.
+potencia_x(-2, -(x^ -1)) :- !.
+potencia_x(N, F) :-
+    M is N + 1,
+    (   M > 0
+    ->  F = x^M / M
+    ;   D is -M,
+        F = -(x^M / D)
+    ).
+
+% contiene_cero(+A, +B): el intervalo [a, b] (en cualquier orden) contiene x = 0.
+contiene_cero(A, B) :-
+    ordenar(A, B, Lo, Hi),
+    Lo =< 0,
+    Hi >= 0.
+
 % i) integral de a^x dx = a^x / ln(a)      (a > 0)
 %    Si a = 1 el integrando es 1 y la antiderivada es x.
 regla(i, Params, A, B, R) :-
