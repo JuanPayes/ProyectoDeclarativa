@@ -10,24 +10,24 @@ public enum Integral {
     B("∫ x dx", "Solo requiere los límites a y b"),
     C("∫ k·x dx", "k es una constante numérica", Parametro.K),
     D("∫ xⁿ dx", "n es un número entero", Parametro.N),
-    E("∫ u dx", "u es una función de x", Parametro.U),
-    F("∫ k·u dx", "k es una constante numérica y u una función de x", Parametro.K, Parametro.U),
+    //E("∫ u dx", "u es una función de x", Parametro.U),
+    //F("∫ k·u dx", "k es una constante numérica y u una función de x", Parametro.K, Parametro.U),
     G("∫ (u + v) dx", "u y v son funciones de x", Parametro.U, Parametro.V),
-    H("∫ (u − v) dx", "u y v son funciones de x", Parametro.U, Parametro.V),
+    //H("∫ (u − v) dx", "u y v son funciones de x", Parametro.U, Parametro.V),
     I("∫ aˣ dx", "a es una constante numérica", Parametro.BASE),
-    J("∫ aᵘ dx", "a es una constante numérica y u una función de x", Parametro.BASE, Parametro.U),
+    //J("∫ aᵘ dx", "a es una constante numérica y u una función de x", Parametro.BASE, Parametro.U),
     K("∫ sin x dx", "Solo requiere los límites a y b"),
-    L("∫ cos x dx", "Solo requiere los límites a y b"),
+    //L("∫ cos x dx", "Solo requiere los límites a y b"),
     M("∫ tan x dx", "Solo requiere los límites a y b"),
-    N("∫ arcsin x dx", "Definida para x en [−1, 1]"),
-    O("∫ arccos x dx", "Definida para x en [−1, 1]"),
-    P("∫ arctan x dx", "Solo requiere los límites a y b"),
-    Q("∫ sinh x dx", "Solo requiere los límites a y b"),
-    R("∫ cosh x dx", "Solo requiere los límites a y b"),
-    S("∫ tanh x dx", "Solo requiere los límites a y b"),
-    T("∫ arcsinh x dx", "Solo requiere los límites a y b"),
-    U("∫ arccosh x dx", "Definida para x ≥ 1"),
-    V("∫ arctanh x dx", "Definida para x en (−1, 1)");
+    //N("∫ arcsin x dx", "Definida para x en [−1, 1]"),
+    //O("∫ arccos x dx", "Definida para x en [−1, 1]"),
+    //P("∫ arctan x dx", "Solo requiere los límites a y b"),
+    //Q("∫ sinh x dx", "Solo requiere los límites a y b"),
+    R("∫ cosh x dx", "Solo requiere los límites a y b");
+    //S("∫ tanh x dx", "Solo requiere los límites a y b"),
+    //T("∫ arcsinh x dx", "Solo requiere los límites a y b"),
+    //U("∫ arccosh x dx", "Definida para x ≥ 1"),
+    //V("∫ arctanh x dx", "Definida para x en (−1, 1)");
 
     private final String etiqueta;
     private final String ayuda;

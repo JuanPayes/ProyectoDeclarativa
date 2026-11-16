@@ -64,10 +64,14 @@ public class Connection implements Motor {
                 return Resultado.pendiente("La regla " + s.integral().id() + ") "
                         + s.integral().etiqueta() + " aún no está implementada en Prolog.", consulta);
             case "error":
-                return Resultado.error(r.getArg(0).toString(), consulta);
+                return Resultado.error(texto(r.getArg(0)), consulta);
             default:
                 return Resultado.error("Respuesta desconocida de Prolog: " + r, consulta);
         }
+    }
+
+    private static String texto(Term t) {
+        return (t instanceof Struct a && a.getArity() == 0) ? a.getName() : t.toString();
     }
 
     private Struct listaParams(Map<Parametro, String> params) {
