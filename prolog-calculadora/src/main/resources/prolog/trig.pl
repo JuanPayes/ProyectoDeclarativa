@@ -41,3 +41,8 @@ extremo_o_cambio_de_signo(Lo, Hi) :-
 % ordenar(+A, +B, -Menor, -Mayor)
 ordenar(A, B, A, B) :- A =< B, !.
 ordenar(A, B, B, A).
+
+% k) integral de sin(x) dx = -cos(x)
+%    sin(x) es continua en todos los reales: no hay restricciones de dominio.
+regla(k, _, A, B, R) :-
+    con_area(-(cos(x)), A, B, R).
