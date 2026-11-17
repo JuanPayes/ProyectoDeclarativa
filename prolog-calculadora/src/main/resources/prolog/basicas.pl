@@ -1,6 +1,6 @@
 % basicas.pl - Reglas basicas: constantes, potencias, linealidad, a^x, a^u
-% Enunciado (a) a (j). Define clausulas de regla/5 (ver integrador.pl).
 
+% Carlos Oswaldo Rubio Cuellar 00000822
 % a) integral de k dx = k*x
 %    Una constante es continua en todos los reales: no hay restricciones.
 regla(a, Params, A, B, R) :-
@@ -8,6 +8,7 @@ regla(a, Params, A, B, R) :-
     por(K, x, F),
     con_area(F, A, B, R).
 
+% Carlos Oswaldo Rubio Cuellar 00000822
 % c) integral de (k*x) dx = k * x^2 / 2
 %    k*x es continua en todos los reales: no hay restricciones.
 regla(c, Params, A, B, R) :-
@@ -20,6 +21,7 @@ k_por_x2_medios(K, x^2 / 2) :- K =:= 1, !.
 k_por_x2_medios(K, -(x^2 / 2)) :- K =:= -1, !.
 k_por_x2_medios(K, K * x^2 / 2).
 
+% Carlos Oswaldo Rubio Cuellar 00000822
 % d) integral de x^n dx, con n entero
 %    n =  0  ->  x
 %    n = -1  ->  ln|x|
@@ -53,6 +55,7 @@ contiene_cero(A, B) :-
     Lo =< 0,
     Hi >= 0.
 
+% Juan Pablo Payes Montalvo 00005923
 % i) integral de a^x dx = a^x / ln(a)      (a > 0)
 %    Si a = 1 el integrando es 1 y la antiderivada es x.
 regla(i, Params, A, B, R) :-
@@ -64,10 +67,12 @@ regla(i, Params, A, B, R) :-
     ;   con_area(Base^x / ln(Base), A, B, R)
     ).
 
+% Roberto Eliseo Martinez Rodríguez 00044623
 % b) integral de x dx = x^2 / 2
 regla(b, _, A, B, R) :-
     con_area(x^2 / 2, A, B, R).
 
+% Roberto Eliseo Martinez Rodríguez 00044623
 % g) integral de (u + v) dx = integral de u dx + integral de v dx
 %    u y v se integran con integrar/2 (abajo). Antes de calcular el area se
 %    revisa que u + v sea continua en [a, b]; si no, la integral es impropia.
@@ -235,3 +240,28 @@ singulares(E, Ac, Ds) :- E =.. [_ | Args], singulares_lista(Args, Ac, Ds).
 
 singulares_lista([], Ac, Ac).
 singulares_lista([A | As], Ac, Ds) :- singulares(A, Ac, Ac1), singulares_lista(As, Ac1, Ds).
+
+% Alison Michelle Maltez Valencia 00100121
+% e) integral de u dx
+regla(e, Params, A, B, R) :-
+    param(u, Params, U0),
+    normalizar(U0, U),
+    integral_u(U, A, B, R).
+
+% Alison Michelle Maltez Valencia 00100121
+% h) integral de (u - v) dx = integral de u dx - integral de v dx
+regla(h, Params, A, B, R) :-
+    param(u, Params, U0),
+    param(v, Params, V0),
+    normalizar(U0, U),
+    normalizar(V0, V),
+    integral_u(U - V, A, B, R).
+
+% integral_u(+E, +A, +B, -R): integra E con integrar/2 y revisa continuidad.
+integral_u(E, _, _, error('No hay una regla para integrar esa funcion. Se admiten sumas, restas, constante*funcion, x^n, 1/x, sin, cos, tan, exp, a^x, ln, sqrt, sinh, cosh y tanh de x o de (k*x + c).')) :-
+    \+ integrar(E, _), !.
+integral_u(E, A, B, error('La funcion no es continua en todo [a, b] (division entre cero, asintota o fuera de dominio): la integral es impropia.')) :-
+    \+ continua(E, A, B), !.
+integral_u(E, A, B, R) :-
+    integrar(E, F),
+    con_area(F, A, B, R).
