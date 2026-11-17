@@ -5,6 +5,7 @@
 % sintaxis. Evitar expresiones aritmeticas dentro de una comparacion
 % (Hi - Lo >= Pi). Mejor:   Dif is Hi - Lo, Dif >= Pi.
 
+% Juan Pablo Payes Montalvo 00005923
 % m) integral de tan(x) dx = -ln|cos(x)|
 %    No esta definida si [a, b] contiene una asintota: x = pi/2 + k*pi.
 regla(m, _, A, B, R) :-
@@ -42,7 +43,14 @@ extremo_o_cambio_de_signo(Lo, Hi) :-
 ordenar(A, B, A, B) :- A =< B, !.
 ordenar(A, B, B, A).
 
+% Roberto Eliseo Martinez Rodríguez 00044623
 % k) integral de sin(x) dx = -cos(x)
 %    sin(x) es continua en todos los reales: no hay restricciones de dominio.
 regla(k, _, A, B, R) :-
     con_area(-(cos(x)), A, B, R).
+
+% Alison Michelle Maltez Valencia 00100121
+% l) integral de cos(x) dx = sin(x)
+%    cos(x) es continua en todos los reales: no hay restricciones de dominio.
+regla(l, _, A, B, R) :-
+    con_area(sin(x), A, B, R).
